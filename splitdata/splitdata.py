@@ -1,40 +1,39 @@
-#!/usr/bin/python
-# coding: UTF-8
- 
-#f = open('01-07_difspe2pp.csv')
-#of = open('01-07_difspe2pp_split.csv','w')
-f = open('bioskin30_dino128_h_take1.csv')
-of = open('bioskin30_dino128_h_take1_test.csv','w')
+import sys
+import os.path
 
+def usage():
+    print ("usage) python splitdata.py filename")
 
-count = 1
+def splitdata(fname, ofname, split1, split2):
+    f = open(fname)
+    of = open(ofname, 'w')
 
-#5行に1行出力する
-#split = 5
-#split2 = 100000
-
-#11行に1行出力する（上の5行に1行出力される行は出力しない）
-#split = 11
-#split2 = 5
-
-#10行に1行出力する
-#split = 10
-#split2 = 100000
-
-#10行に１行以外出力する
-#split = 1
-#split2 = 10
-
-split = 10
-split2 = 100000
-
-line = f.readline()
-while line:
-#    print(line)
+    count = 1
     line = f.readline()
-    if count%split == 0:
-        if count%split2 != 0:
-            of.writelines(line)
-    count = count + 1
-f.close
-of.close
+    of.writelines(line) #first line is label, so write
+    while line:
+        line = f.readline()
+        if count%split1 == 0:
+            if count%split2 != 0:
+                of.writelines(line)
+        count = count + 1
+    f.close
+    of.close
+
+
+if __name__ == '__main__':
+    args = sys.argv
+
+    if(len(args) !=2 ):        
+        usage()
+        quit()
+
+
+    train_fname = os.path.splitext(args[1])[0] + '_train.csv'
+    test_fname = os.path.splitext(args[1])[0] + '_test.csv'
+
+    #10行に１行以外出力する
+    splitdata(args[1], train_fname, 1, 10)
+
+    #10行に1行出力する
+    splitdata(args[1], test_fname, 10, 100000)
