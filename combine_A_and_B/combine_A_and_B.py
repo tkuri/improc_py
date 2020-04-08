@@ -2,6 +2,7 @@ import os
 import numpy as np
 import cv2
 import argparse
+import glob
 
 parser = argparse.ArgumentParser('create image pairs')
 parser.add_argument('--fold_A', dest='fold_A', help='input directory for image A', type=str, default='./data/train_data/top_pred')
@@ -19,8 +20,12 @@ splits = os.listdir(args.fold_A)
 for sp in splits:
     img_fold_A = os.path.join(args.fold_A, sp)
     img_fold_B = os.path.join(args.fold_B, sp)
-    img_list_A = os.listdir(img_fold_A)
-    img_list_B = os.listdir(img_fold_B)
+    img_list_A = sorted(glob.glob(img_fold_A+'/*.png'))
+    img_list_A = [os.path.basename(file) for file in img_list_A]
+    img_list_B = sorted(glob.glob(img_fold_B+'/*.png'))
+    img_list_B = [os.path.basename(file) for file in img_list_B]
+    # img_list_A = os.listdir(img_fold_A)
+    # img_list_B = os.listdir(img_fold_B)
 
     num_imgs = min(args.num_imgs, len(img_list_A))
     print('split = %s, use %d/%d images' % (sp, num_imgs, len(img_list_A)))
