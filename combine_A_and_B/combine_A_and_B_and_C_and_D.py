@@ -9,8 +9,8 @@ parser.add_argument('--fold_A', dest='fold_A', help='input directory for image A
 parser.add_argument('--fold_B', dest='fold_B', help='input directory for image B', type=str, default='./data/train_data/top_gt')
 parser.add_argument('--fold_C', dest='fold_C', help='input directory for image C', type=str, default='./data/train_data/light_pred')
 parser.add_argument('--fold_D', dest='fold_D', help='input directory for image D', type=str, default='./data/train_data/top_pred')
-parser.add_argument('--fold_ABCD', dest='fold_ABCD', help='output directory', type=str, default='./data/train_data/cbox_toplight_pred_to_gt')
-parser.add_argument('--name_ABCD', dest='name_ABCD', help='output file name', type=str, default='toplight_pred_and_irr_gt')
+parser.add_argument('--fold_ABCD', dest='fold_ABCD', help='output directory', type=str, default='./data/train_data/out')
+parser.add_argument('--name_ABCD', dest='name_ABCD', help='output file name', type=str, default='cmb')
 parser.add_argument('--num_imgs', dest='num_imgs', help='number of images', type=int, default=1000000)
 args = parser.parse_args()
 
