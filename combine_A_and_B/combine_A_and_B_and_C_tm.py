@@ -53,8 +53,6 @@ for sp in splits:
             path_C = os.path.join(img_fold_C, name_C)
             if os.path.isfile(path_A) and os.path.isfile(path_B) and os.path.isfile(path_C):            
                 print('A:{}, B:{}, C:{}'.format(path_A, path_B, path_C))
-                name_ABC = '{}_{}_{}.png'.format(args.name_ABC, str(d).zfill(4), str(s).zfill(2))
-                path_ABC = os.path.join(img_fold_ABC, name_ABC)
                 im_A = cv2.imread(path_A, 1)
                 im_B = cv2.imread(path_B, 1)
                 im_C = cv2.imread(path_C, 1)
@@ -64,4 +62,6 @@ for sp in splits:
         for s in range(1, num_subimgs):
             im_ABC = np.concatenate([im_ABC, im_ABC_tmp[s]], 0)
  
+        name_ABC = '{}_{}.png'.format(args.name_ABC, str(d).zfill(4))
+        path_ABC = os.path.join(img_fold_ABC, name_ABC)
         cv2.imwrite(path_ABC, im_ABC)
